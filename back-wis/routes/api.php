@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 require __DIR__.'/compagny.php';
+require __DIR__.'/profile.php';

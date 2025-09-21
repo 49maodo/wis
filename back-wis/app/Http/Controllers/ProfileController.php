@@ -18,8 +18,15 @@ class ProfileController extends Controller
     public function store(ProfileRequest $request)
     {
         $this->authorize('create', Profile::class);
+        $data = $request->validated();
 
-        return new ProfileResource(Profile::create($request->validated()));
+        // Si user_id n'est pas fourni, utiliser l'utilisateur authentifié
+        $data['user_id'] = auth()->id();
+
+
+        $profile = Profile::create($data);
+
+        return new ProfileResource($profile->load('user'));
     }
 
     public function show(Profile $profile)
@@ -32,10 +39,10 @@ class ProfileController extends Controller
     public function update(ProfileRequest $request, Profile $profile)
     {
         $this->authorize('update', $profile);
+        $data = $request->validated();
 
-        $profile->update($request->validated());
-
-        return new ProfileResource($profile);
+        $profile->update($data);
+        return new ProfileResource($profile->fresh()->load('user'));
     }
 
     public function destroy(Profile $profile)

@@ -15,7 +15,7 @@ return new class extends Migration {
             $table->json('experiences')->nullable();
             $table->json('education')->nullable();
             $table->json('languages')->nullable();
-            $table->integer('user_id');
+            $table->foreignIdFor(App\Models\User::class)->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
