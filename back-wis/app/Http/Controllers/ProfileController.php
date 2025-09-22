@@ -12,7 +12,8 @@ class ProfileController extends Controller
     {
         $this->authorize('viewAny', Profile::class);
 
-        return ProfileResource::collection(Profile::all());
+        $profiles = Profile::with('user')->get();
+        return ProfileResource::collection($profiles);
     }
 
     public function store(ProfileRequest $request)
@@ -25,13 +26,15 @@ class ProfileController extends Controller
 
 
         $profile = Profile::create($data);
+        $profile->load('user');
 
-        return new ProfileResource($profile->load('user'));
+        return new ProfileResource($profile);
     }
 
     public function show(Profile $profile)
     {
         $this->authorize('view', $profile);
+        $profile->load('user');
 
         return new ProfileResource($profile);
     }
@@ -42,7 +45,8 @@ class ProfileController extends Controller
         $data = $request->validated();
 
         $profile->update($data);
-        return new ProfileResource($profile->fresh()->load('user'));
+        $profile->load('user');
+        return new ProfileResource($profile);
     }
 
     public function destroy(Profile $profile)

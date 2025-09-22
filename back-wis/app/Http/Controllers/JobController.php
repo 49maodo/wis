@@ -11,8 +11,9 @@ class JobController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Job::class);
+        $jobs = Job::with(['compagny', 'recruiter'])->get();
 
-        return JobResource::collection(Job::with(['compagny', 'recruiter'])->get());
+        return JobResource::collection($jobs);
     }
 
     public function store(JobRequest $request)
@@ -24,12 +25,16 @@ class JobController extends Controller
         $data['creatorId'] = auth()->id();
         $data['compagny_id'] = auth()->user()->compagny->id;
 
-        return new JobResource(Job::create($data)::with(['compagny', 'recruiter']));
+        $job = Job::create($data);
+        $job->load(['compagny', 'recruiter']);
+
+        return new JobResource($job);
     }
 
     public function show(Job $job)
     {
         $this->authorize('view', $job);
+        $job->load(['compagny', 'recruiter']);
 
         return new JobResource($job);
     }
@@ -39,7 +44,7 @@ class JobController extends Controller
         $this->authorize('update', $job);
 
         $job->update($request->validated());
-
+        $job->load(['compagny', 'recruiter']);
         return new JobResource($job);
     }
 
