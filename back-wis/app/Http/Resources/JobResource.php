@@ -20,8 +20,8 @@ class JobResource extends JsonResource
             'experienceLevel' => $this->experienceLevel,
             'location' => $this->location,
             'jobtype' => $this->jobtype,
-            'creator' => $this->recruiter,
-            'compagny' => $this->compagny,
+            'creator' => $this->whenLoaded('recruiter'),
+            'compagny' => $this->whenLoaded('compagny'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
