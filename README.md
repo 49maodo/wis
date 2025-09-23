@@ -1,88 +1,84 @@
-# WIS - Web Information System
+# Plateforme Web de Recrutement – Sénégal
 
-Une application web moderne avec un backend Laravel et un frontend React/TypeScript.
+Plateforme dédiée à la mise en relation entre professionnels et employeurs sénégalais, adaptée aux spécificités locales.
 
-## 📋 Description
+## Technologies clés
 
-WIS (Web Information System) est une application full-stack composée de :
+- **Frontend** : React / TypeScript
+- **Backend** : Laravel
+- **Base de données** : PostgreSQL
+- **Authentification** : JWT
 
-- **Backend** : API Laravel avec authentification
-- **Frontend** : Application React avec TypeScript et Vite
+## Fonctionnalités principales
 
-## 🏗️ Architecture
+### Interfaces
 
-```
-wis/
-├── back-wis/          # Backend Laravel
-│   ├── app/           # Code source Laravel
-│   ├── config/        # Configuration
-│   ├── database/      # Migrations et seeders
-│   ├── routes/        # Routes API et web
-│   └── ...
-└── front-wis/         # Frontend React
-    ├── src/           # Code source React/TypeScript
-    ├── public/        # Assets statiques
-    └── ...
-```
+- **Administrateur**
+    - Gestion des utilisateurs (recruteurs, candidats)
+    - Modération des offres
+    - Statistiques globales
 
-## 🚀 Installation
+- **Recruteur**
+    - Publication et gestion des offres d’emploi
+    - Suivi des candidatures en mode Kanban
+    - Gestion des pipelines de recrutement
 
-### Prérequis
+- **Candidat**
+    - Consultation des offres
+    - Candidature en un clic
+    - Gestion du profil et références professionnelles
 
-- PHP >= 8.1
-- Composer
-- Node.js >= 18
-- npm ou yarn
+### Recherche avancée
 
-### Backend (Laravel)
+- Filtres : région, secteur, expérience, type de contrat, entreprise
 
-```bash
-cd back-wis
-composer install
-cp .env.example .env
-php artisan key:generate
-php artisan migrate
-php artisan serve
-```
+### Adaptation au contexte sénégalais
 
-### Frontend (React)
+- Gestion des 14 régions du Sénégal
+- Salaires affichés en FCFA
+- Classification des secteurs locaux (télécoms, agriculture, fintech, etc.)
+- Données de test : entreprises locales (Sonatel, Orange, SGBS...)
 
-```bash
-cd front-wis
-npm install
-npm run dev
-```
+### Architecture
 
-## 📝 Configuration
+- Authentification JWT, gestion fine des rôles
+- API RESTful documentée, extensible (mobile, microservices)
 
-1. Configurez votre base de données dans `back-wis/.env`
-2. Ajustez les paramètres API dans le frontend si nécessaire
+## Objectif
 
-## 🛠️ Développement
+Faciliter la mise en relation rapide et efficace entre professionnels et employeurs sénégalais, en tenant compte des spécificités du marché local.
 
-### Backend
+---
 
-- `php artisan serve` - Démarre le serveur de développement
-- `php artisan migrate` - Execute les migrations
-- `php artisan test` - Lance les tests
+## Liste des fonctionnalités
 
-### Frontend
+### 1. Administrateur
 
-- `npm run dev` - Démarre le serveur de développement
-- `npm run build` - Build de production
-- `npm run preview` - Aperçu du build
+- Gestion des utilisateurs : création, modification, suppression, attribution de rôles, historique d’activités
+- Gestion des entreprises : création et gestion de profils
+- Surveillance et rapports : statistiques, rapports d’activité
 
-## 📚 Technologies utilisées
+### 2. Recruteur
 
-### Backend
+- Gestion des offres d’emploi : création, modification, suppression, publication, annulation
+- Gestion des candidatures : sélection, invitation à entretien, gestion des statuts
+- Gestion du profil entreprise : nom, description, logo, site web
+- Notifications : alertes sur candidatures, mises à jour, entretiens
 
-- Laravel
-- PHP
-- MySQL/PostgreSQL
+### 3. Candidat
 
-### Frontend
+- Création et gestion du profil : expérience, compétences, formations, CV, portfolio, LinkedIn
+- Recherche et filtre des offres : secteur, localisation, contrat, salaire, expérience
+- Candidature aux offres : soumission de CV et lettre de motivation, suivi des statuts
+- Suivi des candidatures : historique, notifications sur avancement
+- Alertes : nouvelles offres, changements de statut, invitations à entretien
 
-- React
-- TypeScript
-- Vite
-- CSS
+---
+
+## Contribution
+
+Pour contribuer, veuillez soumettre une pull request ou ouvrir une issue.
+
+## Licence
+
+Ce projet est sous licence MIT.
