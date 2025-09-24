@@ -3,7 +3,6 @@
 namespace App\Filament\Admin\Widgets;
 
 use App\Models\Job;
-use App\Models\User;
 use Filament\Widgets\ChartWidget;
 
 class JobExperienceChart extends ChartWidget
