@@ -18,6 +18,7 @@ class JobRequest extends FormRequest
             'salary' => ['nullable', 'numeric'],
             'experienceLevel' => ['required', Rule::enum(ExperienceLevel::class)],
             'location' => ['nullable'],
+            'sector' => ['nullable'],
             'jobtype' => ['required', Rule::enum(JobType::class)],
         ];
     }

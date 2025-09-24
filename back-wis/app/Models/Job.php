@@ -16,6 +16,7 @@ class Job extends Model
         'salary',
         'experienceLevel',
         'location',
+        'sector',
         'jobtype',
         'creatorId',
         'compagny_id',
