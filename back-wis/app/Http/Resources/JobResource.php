@@ -19,6 +19,7 @@ class JobResource extends JsonResource
             'salary' => $this->salary,
             'experienceLevel' => $this->experienceLevel,
             'location' => $this->location,
+            'sector' => $this->sector,
             'jobtype' => $this->jobtype,
             'creator' => $this->whenLoaded('recruiter'),
             'compagny' => $this->whenLoaded('compagny'),
