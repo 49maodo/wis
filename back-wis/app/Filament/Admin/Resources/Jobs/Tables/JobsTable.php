@@ -28,8 +28,9 @@ class JobsTable
                     ->searchable(),
                 TextColumn::make('jobtype')
                     ->searchable(),
-                TextColumn::make('creatorId')
-                    ->numeric()
+                TextColumn::make('recruiter.email')
+                    ->label('Recruiter')
+                    ->searchable()
                     ->sortable(),
                 TextColumn::make('compagny.name')
                     ->numeric()

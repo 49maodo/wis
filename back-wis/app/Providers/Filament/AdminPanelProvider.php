@@ -52,6 +52,7 @@ class AdminPanelProvider extends PanelProvider
                 DisableBladeIconComponents::class,
                 DispatchServingFilamentEvent::class,
             ])
+            ->readOnlyRelationManagersOnResourceViewPagesByDefault(false)
             ->authMiddleware([
                 Authenticate::class,
             ]);

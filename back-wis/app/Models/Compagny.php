@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\UserRole;
 use Illuminate\Database\Eloquent\Model;
 
 class Compagny extends Model
@@ -15,6 +16,6 @@ class Compagny extends Model
     ];
     public function recruiters()
     {
-        return $this->hasMany(User::class)->where('role', 'RECRUITER');
+        return $this->hasMany(User::class)->where('role', UserRole::RECRUITER);
     }
 }

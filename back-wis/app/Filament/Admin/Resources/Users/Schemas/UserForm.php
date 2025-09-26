@@ -21,17 +21,17 @@ class UserForm
                     ->label('Email address')
                     ->email()
                     ->required(),
-                DateTimePicker::make('email_verified_at'),
-                TextInput::make('password')
-                    ->password()
-                    ->required(),
                 TextInput::make('phoneNumber')
                     ->tel(),
                 Select::make('role')
                     ->options(UserRole::class)
                     ->default('user'),
-                TextInput::make('compagny_id')
-                    ->numeric(),
+                Select::make('compagny_id')
+                    ->label('Compagny')
+                    ->relationship('compagny', 'name')
+                    ->preload()
+                    ->nullable()
+                    ->searchable(),
             ]);
     }
 }

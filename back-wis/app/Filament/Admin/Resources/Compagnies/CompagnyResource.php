@@ -6,6 +6,7 @@ use App\Filament\Admin\Resources\Compagnies\Pages\CreateCompagny;
 use App\Filament\Admin\Resources\Compagnies\Pages\EditCompagny;
 use App\Filament\Admin\Resources\Compagnies\Pages\ListCompagnies;
 use App\Filament\Admin\Resources\Compagnies\Pages\ViewCompagny;
+use App\Filament\Admin\Resources\Compagnies\RelationManagers\RecruitersRelationManager;
 use App\Filament\Admin\Resources\Compagnies\Schemas\CompagnyForm;
 use App\Filament\Admin\Resources\Compagnies\Schemas\CompagnyInfolist;
 use App\Filament\Admin\Resources\Compagnies\Tables\CompagniesTable;
@@ -51,7 +52,7 @@ class CompagnyResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RecruitersRelationManager::class,
         ];
     }
 
