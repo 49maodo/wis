@@ -2,6 +2,7 @@
 
 namespace App\Filament\Admin\Resources\Users\Schemas;
 
+use App\Enums\UserRole;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Schema;
 
@@ -18,7 +19,14 @@ class UserInfolist
                 TextEntry::make('email_verified_at')
                     ->dateTime(),
                 TextEntry::make('phoneNumber'),
-                TextEntry::make('role'),
+                TextEntry::make('role')
+                    ->badge()
+                    ->color(fn (UserRole|string $state): string => match ($state) {
+                        UserRole::USER => 'primary',
+                        UserRole::RECRUITER => 'success',
+                        UserRole::ADMIN => 'danger',
+                        default => 'secondary',
+                    }),
                 TextEntry::make('compagny_id')
                     ->numeric(),
                 TextEntry::make('created_at')

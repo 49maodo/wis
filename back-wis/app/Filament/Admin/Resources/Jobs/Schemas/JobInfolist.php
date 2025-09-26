@@ -18,7 +18,7 @@ class JobInfolist
                 TextEntry::make('experienceLevel'),
                 TextEntry::make('location'),
                 TextEntry::make('jobtype'),
-                TextEntry::make('creatorId')
+                TextEntry::make('recruiter.email')
                     ->numeric(),
                 TextEntry::make('compagny.name')
                     ->numeric(),
