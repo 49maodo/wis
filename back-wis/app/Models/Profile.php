@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Profile extends Model
 {
     protected $fillable = [
+        'slug',
         'resume',
         'social',
         'skills',

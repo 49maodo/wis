@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Models\Application;
+use App\Models\CompanyVerifications;
 use App\Models\Job;
 use App\Policies\ApplicationPolicy;
+use App\Policies\CompagnyVerificationsPolicy;
 use App\Policies\JobPolicy;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -20,6 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Job::class => JobPolicy::class,
         Application::class => ApplicationPolicy::class,
+        CompanyVerifications::class => CompagnyVerificationsPolicy::class,
     ];
 
     /**

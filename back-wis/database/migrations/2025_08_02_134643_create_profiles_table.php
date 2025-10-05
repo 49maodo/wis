@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
+            $table->string('slug')->unique();
             $table->text('resume');
             $table->json('social')->nullable();
             $table->json('skills')->nullable();

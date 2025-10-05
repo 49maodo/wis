@@ -23,20 +23,40 @@ class JobPolicy
 
     public function create(User $user): bool
     {
-        return $user->hasRole(UserRole::ADMIN) ||
-            ($user->hasRole(UserRole::RECRUITER) && $user->compagny);
+        if ($user->hasRole(UserRole::ADMIN)) {
+            return true;
+        }
+
+        // Le recruteur doit avoir une entreprise validée
+        if ($user->hasRole(UserRole::RECRUITER) && $user->compagny->is_verified) {
+            return true;
+        }
+
+        return false;
     }
 
     public function update(User $user, Job $job): bool
     {
-        return $user->hasRole(UserRole::ADMIN) ||
-            ($user->hasRole(UserRole::RECRUITER) and $user->id === $job->creatorId && $user->compagny);
+        if ($user->hasRole(UserRole::ADMIN)) {
+            return true;
+        }
+        // Le recruteur doit avoir une entreprise validée
+        if ($user->hasRole(UserRole::RECRUITER) && $user->id === $job->creatorId && $user->compagny->is_verified) {
+            return true;
+        }
+        return false;
     }
 
     public function delete(User $user, Job $job): bool
     {
-        return $user->hasRole(UserRole::ADMIN) ||
-            ($user->hasRole(UserRole::RECRUITER) and $user->id === $job->creatorId && $user->compagny);
+        if ($user->hasRole(UserRole::ADMIN)) {
+            return true;
+        }
+        // Le recruteur doit avoir une entreprise validée
+        if ($user->hasRole(UserRole::RECRUITER) && $user->id === $job->creatorId && $user->compagny->is_verified) {
+            return true;
+        }
+        return false;
     }
 
     public function restore(User $user, Job $job): bool

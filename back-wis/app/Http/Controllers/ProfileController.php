@@ -8,22 +8,30 @@ use App\Models\Profile;
 
 class ProfileController extends Controller
 {
+
+    /**
+     * My Profile.
+     */
     public function index()
     {
         $this->authorize('viewAny', Profile::class);
+        $profile = Profile::with('user')->where('user_id', auth()->id())->get();
 
-        $profiles = Profile::with('user')->get();
-        return ProfileResource::collection($profiles);
+        return new ProfileResource($profile);
     }
-
+    /**
+     *  Create Profile.
+     */
     public function store(ProfileRequest $request)
     {
         $this->authorize('create', Profile::class);
         $data = $request->validated();
 
         // Si user_id n'est pas fourni, utiliser l'utilisateur authentifié
-        $data['user_id'] = auth()->id();
-
+        $user = auth()->user();
+        $data['user_id'] = $user->id;
+        // generate a unique slug based on first_name and name
+        $data['slug'] = \Str::slug($user->firstname . ' ' . $user->name . '-' . uniqid());
 
         $profile = Profile::create($data);
         $profile->load('user');
@@ -31,16 +39,31 @@ class ProfileController extends Controller
         return new ProfileResource($profile);
     }
 
-    public function show(Profile $profile)
+    /**
+     * Show Profile by slug.
+     */
+//    public function show(Profile $profile)
+//    {
+//        $this->authorize('view', $profile);
+//        $profile->load('user');
+//
+//        return new ProfileResource($profile);
+//    }
+    // show profile by slug
+    public function showBySlug($profile)
     {
+        $profile = Profile::where('slug', $profile)->firstOrFail();
         $this->authorize('view', $profile);
         $profile->load('user');
-
         return new ProfileResource($profile);
     }
 
-    public function update(ProfileRequest $request, Profile $profile)
+    /**
+     * Update Profile by slug.
+     */
+    public function update(ProfileRequest $request,  $slug)
     {
+        $profile = Profile::where('slug', $slug)->firstOrFail();
         $this->authorize('update', $profile);
         $data = $request->validated();
 
@@ -49,6 +72,9 @@ class ProfileController extends Controller
         return new ProfileResource($profile);
     }
 
+    /**
+     * Delete Profile.
+     */
     public function destroy(Profile $profile)
     {
         $this->authorize('delete', $profile);

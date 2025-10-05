@@ -23,12 +23,12 @@ class CompagnyPolicy
 
     public function create(User $user)
     {
-        return $user->hasRole(UserRole::ADMIN);
+        return $user->hasRole(UserRole::ADMIN) || ($user->hasRole(UserRole::RECRUITER) && !$user->compagny_id);
     }
 
     public function update(User $user, Compagny $compagny)
     {
-        return $user->hasRole(UserRole::ADMIN) || ($user->hasRole(UserRole::RECRUITER) && $user->compagny_id === $compagny->id);
+        return $user->hasRole(UserRole::ADMIN) || $compagny->owner_id === $user->id;
     }
 
     public function delete(User $user, Compagny $compagny)

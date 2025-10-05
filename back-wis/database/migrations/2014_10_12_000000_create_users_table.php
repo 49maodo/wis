@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('phoneNumber')->nullable();
             $table->string('role')->default(UserRole::USER->value)->nullable();
-            $table->foreignIdFor(App\Models\Compagny::class)->nullable();
+            $table->foreignIdFor(App\Models\Compagny::class)->nullable()->constrained()->nullOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

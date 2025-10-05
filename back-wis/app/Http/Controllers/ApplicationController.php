@@ -13,7 +13,7 @@ class ApplicationController extends Controller
     {
         $this->authorize('viewAny', Application::class);
 
-        $applications = Application::with(['job', 'candidat'])->get();
+        $applications = Application::with(['job', 'candidat'])->paginate(20);
 
         return ApplicationResource::collection($applications);
     }
