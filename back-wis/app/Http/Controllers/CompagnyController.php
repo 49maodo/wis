@@ -11,8 +11,9 @@ class CompagnyController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Compagny::class);
-
-        return CompagnyResource::collection(Compagny::all());
+        $compagnies = Compagny::paginate(20);
+        $compagnies->load('owner', 'verifications', 'verifications.submittedBy');
+        return CompagnyResource::collection($compagnies);
     }
 
     public function store(CompagnyRequest $request)
@@ -23,8 +24,14 @@ class CompagnyController extends Controller
         if($request->hasFile('logo')){
             $data['logo'] = $request->file('logo')->store('logos', 'public');
         }
+        $user = auth()->user();
+        $data['owner_id'] = $user->id;
+        // update user compagny_id
+        $compagny = Compagny::create($data);
+        $user->compagny_id = $compagny->id;
+        $user->save();
 
-        return new CompagnyResource(Compagny::create($data));
+        return new CompagnyResource($compagny->load('owner'));
     }
 
     public function show(Compagny $compagny)

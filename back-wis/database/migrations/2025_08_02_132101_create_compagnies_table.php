@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('compagnies', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('owner_id')->constrained('users')->nullOnDelete();
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('website')->nullable();

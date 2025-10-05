@@ -18,7 +18,7 @@ class ProfilePolicy
 
     public function view(User $user, Profile $profile)
     {
-        return $user->hasRole(UserRole::ADMIN) || $user->hasRole(UserRole::RECRUITER) || $user->id === $profile->user_id;
+        return true;
     }
 
     public function create(User $user)

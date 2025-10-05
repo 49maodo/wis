@@ -18,7 +18,18 @@ class DatabaseSeeder extends Seeder
              'email' => 'admin@gmail.com',
              'role' => \App\Enums\UserRole::ADMIN,
              'password' => 'passer',
-             'phoneNumber' => '7700000000',
+             'phoneNumber' => '770000000',
          ]);
+
+        \App\Models\User::factory()->create([
+            'firstname' => 'test',
+            'name' => 'test',
+            'email' => 'test@gmail.com',
+            'role' => \App\Enums\UserRole::RECRUITER,
+            'password' => 'passer',
+            'phoneNumber' => '770000001',
+        ]);
+
+
     }
 }
