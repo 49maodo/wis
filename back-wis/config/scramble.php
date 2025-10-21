@@ -89,11 +89,11 @@ return [
      * ],
      * ```
      */
-//    'servers' => null,
-    'servers' => [
-        'Local' => url('api'),
-        'Prod' => env('SCRAMBLE_API_PATH'),
-    ],
+    'servers' =>  env('SCRAMBLE_API_PATH', null),
+//    'servers' => [
+//        'Local' => url('api'),
+//        'Prod' => env('SCRAMBLE_API_PATH'),
+//    ],
     /**
      * Determines how Scramble stores the descriptions of enum cases.
      * Available options:
