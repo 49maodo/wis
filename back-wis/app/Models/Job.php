@@ -20,6 +20,7 @@ class Job extends Model
         'jobtype',
         'creatorId',
         'compagny_id',
+        'deadline',
     ];
 
     public function recruiter(): BelongsTo
@@ -38,6 +39,7 @@ class Job extends Model
             'requirements' => 'array',
             'experienceLevel' => ExperienceLevel::class,
             'jobtype' => JobType::class,
+            'deadline' => 'date',
         ];
     }
 }

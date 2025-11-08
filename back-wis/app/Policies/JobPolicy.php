@@ -58,7 +58,6 @@ class JobPolicy
         }
         return false;
     }
-
     public function restore(User $user, Job $job): bool
     {
         return $user->hasRole(UserRole::ADMIN);

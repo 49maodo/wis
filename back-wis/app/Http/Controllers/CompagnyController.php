@@ -11,7 +11,7 @@ class CompagnyController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Compagny::class);
-        $compagnies = Compagny::paginate(20);
+        $compagnies = Compagny::all();
         $compagnies->load('owner', 'verifications', 'verifications.submittedBy');
         return CompagnyResource::collection($compagnies);
     }
