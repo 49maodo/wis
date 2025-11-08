@@ -21,6 +21,7 @@ class JobResource extends JsonResource
             'location' => $this->location,
             'sector' => $this->sector,
             'jobtype' => $this->jobtype,
+            'deadline' => $this->deadline,
             'creator' => $this->whenLoaded('recruiter'),
             'compagny' => $this->whenLoaded('compagny'),
             'created_at' => $this->created_at,

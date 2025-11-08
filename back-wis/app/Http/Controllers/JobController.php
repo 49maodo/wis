@@ -11,7 +11,7 @@ class JobController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Job::class);
-        $jobs = Job::with(['compagny', 'recruiter'])->paginate(20);
+        $jobs = Job::with(['compagny', 'recruiter'])->get();
 
         return JobResource::collection($jobs);
     }

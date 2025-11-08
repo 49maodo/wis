@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->string('jobtype');
             $table->foreignIdFor(User::class, 'creatorId')->constrained('users');
             $table->foreignIdFor(Compagny::class)->constrained('compagnies')->onDelete('cascade');
+            $table->date('deadline')->nullable();
             $table->timestamps();
         });
     }
