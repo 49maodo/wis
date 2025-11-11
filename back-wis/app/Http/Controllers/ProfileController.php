@@ -15,8 +15,8 @@ class ProfileController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Profile::class);
-        $profile = Profile::with('user')->where('user_id', auth()->id())->get();
-
+//        $profile = Profile::with('user')->where('user_id', auth()->id())->get();
+        $profile = Profile::where('user_id', auth()->id())->first();
         return new ProfileResource($profile);
     }
     /**

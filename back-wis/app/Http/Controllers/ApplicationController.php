@@ -6,6 +6,7 @@ use App\Http\Requests\ApplicationRequest;
 use App\Http\Requests\ApplicationUpdateRequest;
 use App\Http\Resources\ApplicationResource;
 use App\Models\Application;
+use App\Models\Job;
 
 class ApplicationController extends Controller
 {
@@ -13,7 +14,7 @@ class ApplicationController extends Controller
     {
         $this->authorize('viewAny', Application::class);
 
-        $applications = Application::with(['job', 'candidat'])->get();
+        $applications = Application::with(['job', 'job.compagny', 'candidat'])->get();
 
         return ApplicationResource::collection($applications);
     }
@@ -29,7 +30,7 @@ class ApplicationController extends Controller
         }
 
         $application = Application::create($data);
-        $application->load(['job', 'candidat']);
+        $application->load(['job', 'job.compagny', 'candidat']);
 
         return new ApplicationResource($application);
     }
@@ -38,9 +39,16 @@ class ApplicationController extends Controller
     {
         $this->authorize('view', $application);
 
-        $application->load(['job', 'candidat']); // Charger les relations
+        $application->load(['job', 'job.compagny', 'candidat']); // Charger les relations
 
         return new ApplicationResource($application);
+    }
+
+    public function showByJob(Job $job)
+    {
+        $applications = Application::where('job_id', $job->id)
+            ->with(['job', 'job.compagny', 'candidat'])->get();
+        return ApplicationResource::collection($applications);
     }
 
     public function update(ApplicationUpdateRequest $request, Application $application)
@@ -49,7 +57,7 @@ class ApplicationController extends Controller
 
         $application->update($request->validated());
 
-        $application->load(['job', 'candidat']); // Recharger les relations
+        $application->load(['job', 'job.compagny', 'candidat']); // Recharger les relations
 
         return new ApplicationResource($application);
     }

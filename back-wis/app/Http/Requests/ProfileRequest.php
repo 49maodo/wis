@@ -48,7 +48,6 @@ class ProfileRequest extends FormRequest
             'languages' => ['nullable', 'array'],
             'languages.*.language' => ['required_with:languages', 'string', 'max:50'],
             'languages.*.level' => ['required_with:languages', 'string', 'in:débutant,élémentaire,intermédiaire,courant,bilingue,natif'],
-            'languages.*.certification' => ['nullable', 'string', 'max:100'],
         ];
     }
 
