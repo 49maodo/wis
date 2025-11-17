@@ -19,6 +19,7 @@ class ApplicationResource extends JsonResource
             'job' => $this->whenLoaded('job'),
             'candidat' => $this->whenLoaded('candidat'),
             'compagny' => $this->whenLoaded('compagny'),
+            'profile' => $this->whenLoaded('candidat.profile'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
