@@ -56,6 +56,10 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsTo(Compagny::class);
     }
 
+    public function profile(){
+        return $this->hasOne(Profile::class, 'user_id', 'id');
+    }
+
     // hasRole
 
     public function hasRole(UserRole $role): bool
