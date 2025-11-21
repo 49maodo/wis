@@ -13,7 +13,7 @@ class CompagnyRequest extends FormRequest
             'description' => ['nullable', 'max:255'],
             'website' => ['nullable', 'url'],
             'location' => ['nullable', 'string', 'max:255'],
-            'logo' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'logo' => ['nullable', 'image', 'max:2048'],
         ];
     }
 

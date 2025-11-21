@@ -22,7 +22,7 @@ class CompagnyVerificationsController extends Controller
         $data = $request->validated();
         $data['submitted_by'] = auth()->id();
 
-        return new CompagnyVerificationsResource(CompagnyVerifications::create($data)->load('compagny'));
+        return new CompagnyVerificationsResource(CompagnyVerifications::create($data));
     }
 
     public function show(CompagnyVerifications $companyVerifications)

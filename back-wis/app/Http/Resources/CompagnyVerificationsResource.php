@@ -2,11 +2,11 @@
 
 namespace App\Http\Resources;
 
-use App\Models\CompanyVerifications;
+use App\Models\CompagnyVerifications;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-/** @mixin CompanyVerifications */
+/** @mixin CompagnyVerifications */
 class CompagnyVerificationsResource extends JsonResource
 {
     public function toArray(Request $request): array
@@ -23,8 +23,6 @@ class CompagnyVerificationsResource extends JsonResource
 
             'compagny_id' => $this->compagny_id,
             'submitted_by' => $this->submitted_by,
-
-            'compagny' => new CompagnyResource($this->whenLoaded('compagny')),
         ];
     }
 }

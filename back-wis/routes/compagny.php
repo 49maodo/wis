@@ -3,6 +3,7 @@
 use App\Http\Controllers\CompagnyController;
 
 Route::prefix('compagny')->group(function () {
+    Route::get('/me', [CompagnyController::class, 'getMyCompagnie']);
     Route::get('/', [CompagnyController::class, 'index']);
     Route::get('/{compagny}', [CompagnyController::class, 'show']);
     Route::post('/', [CompagnyController::class, 'store'])->middleware('auth');
