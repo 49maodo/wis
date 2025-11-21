@@ -20,6 +20,7 @@ class CompagnyResource extends JsonResource
             'location' => $this->location,
             'logo' => $this->logo ? Storage::url($this->logo) : null,
             'owner' => $this->whenLoaded('owner'),
+            'recruiters' => $this->whenLoaded('recruiters'),
             'isVerified' => $this->is_verified,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

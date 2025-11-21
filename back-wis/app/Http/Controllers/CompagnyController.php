@@ -12,8 +12,28 @@ class CompagnyController extends Controller
     {
         $this->authorize('viewAny', Compagny::class);
         $compagnies = Compagny::all();
-        $compagnies->load('owner', 'verifications', 'verifications.submittedBy');
+        $compagnies->load('owner', 'verifications', 'verifications.submittedBy', 'recruiters');
         return CompagnyResource::collection($compagnies);
+    }
+
+    public function getMyCompagnie()
+    {
+        $user = auth()->user();
+        if (!$user || !$user->compagny_id) {
+            return response()->json(null, 204);
+        }
+
+        $compagny = Compagny::find($user->compagny_id);
+
+        if (!$compagny) {
+            return response()->json(null, 204);
+        }
+
+        $this->authorize('view', $compagny);
+
+        $compagny->load('owner', 'verifications', 'verifications.submittedBy', 'recruiters');
+
+        return new CompagnyResource($compagny);
     }
 
     public function store(CompagnyRequest $request)
@@ -38,6 +58,8 @@ class CompagnyController extends Controller
     {
         $this->authorize('view', $compagny);
 
+        $compagny->load('owner', 'verifications', 'verifications.submittedBy', 'recruiters');
+
         return new CompagnyResource($compagny);
     }
 
@@ -57,6 +79,8 @@ class CompagnyController extends Controller
         }
 
         $compagny->update($data);
+
+        $compagny->load('owner', 'verifications', 'verifications.submittedBy', 'recruiters');
 
         return new CompagnyResource($compagny);
     }
