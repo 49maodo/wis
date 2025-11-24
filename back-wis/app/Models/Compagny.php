@@ -39,9 +39,16 @@ class Compagny extends Model
         );
     }
 
-//    public function isVerified()
-//    {
-//        return $this->verifications && $this->verifications->status === \App\Enums\VerificationStatus::APPROVED;
-//    }
+    public function invitations()
+    {
+        return $this->hasMany(CompanyInvitation::class);
+    }
+
+    public function pendingInvitations()
+    {
+        return $this->hasMany(CompanyInvitation::class)
+            ->whereNull('accepted_at')
+            ->where('expires_at', '>', now());
+    }
 
 }
