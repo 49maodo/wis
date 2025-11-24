@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use App\Models\Application;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Storage;
 
 /** @mixin Application */
 class ApplicationResource extends JsonResource
@@ -14,11 +15,11 @@ class ApplicationResource extends JsonResource
         return [
             'id' => $this->id,
             'message' => $this->message,
-            'cv' => $this->cv,
+            'cv' => $this->cv ? url(Storage::url($this->cv)) : null,
             'status' => $this->status,
-            'job' => $this->whenLoaded('job'),
+            'job' => new JobResource($this->whenLoaded('job')),
             'candidat' => $this->whenLoaded('candidat'),
-            'compagny' => $this->whenLoaded('compagny'),
+            'compagny' => new CompagnyResource($this->whenLoaded('compagny')),
             'profile' => $this->whenLoaded('candidat.profile'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,

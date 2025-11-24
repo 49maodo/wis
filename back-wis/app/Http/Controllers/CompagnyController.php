@@ -99,4 +99,14 @@ class CompagnyController extends Controller
 
         return response()->json();
     }
+
+    /**
+     *  Invite recruiter to compagny (send email with token)
+     */
+    public function inviteRecruiter()
+    {
+    }
+
+    public function acceptRecruiter(){
+    }
 }

@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Application;
-use App\Models\CompanyVerifications;
+use App\Models\CompagnyVerifications;
 use App\Models\Job;
 use App\Policies\ApplicationPolicy;
 use App\Policies\CompagnyVerificationsPolicy;
@@ -22,7 +22,7 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
         Job::class => JobPolicy::class,
         Application::class => ApplicationPolicy::class,
-        CompanyVerifications::class => CompagnyVerificationsPolicy::class,
+        CompagnyVerifications::class => CompagnyVerificationsPolicy::class,
     ];
 
     /**
