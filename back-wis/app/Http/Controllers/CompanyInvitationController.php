@@ -26,7 +26,8 @@ class CompanyInvitationController extends Controller
             ], 403);
         }
 
-        $invitations = CompanyInvitation::where(['compagny_id', $user->compagny->id])
+        $invitations = CompanyInvitation::where('compagny_id', $user->compagny_id)
+            ->where('accepted_at', null)
             ->with(['inviter', 'user'])
             ->orderBy('created_at', 'desc')
             ->get()
@@ -57,6 +58,39 @@ class CompanyInvitationController extends Controller
         return response()->json(['data' => $invitations]);
     }
 
+    /**
+     * Liste de mes invitations
+     */
+    public function myInvitations(Request $request)
+    {
+        $user = $request->user();
+        $invitations = CompanyInvitation::where('email', $user->email)
+            ->where('accepted_at', '=', null)
+            ->with(['compagny', 'inviter'])
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($invitation) {
+                return [
+                    'id' => $invitation->id,
+                    'email' => $invitation->email,
+                    'token' => $invitation->token,
+                    'company' => [
+                        'id' => $invitation->compagny->id,
+                        'name' => $invitation->compagny->name,
+                    ],
+                    'invited_by' => [
+                        'name' => $invitation->inviter->firstname . ' ' . $invitation->inviter->name,
+                        'email' => $invitation->inviter->email,
+                    ],
+                    'status' => $invitation->accepted_at ? 'accepted' : ($invitation->isExpired() ? 'expired' : 'pending'),
+                    'expires_at' => $invitation->expires_at->toISOString(),
+                    'accepted_at' => $invitation->accepted_at?->toISOString(),
+                    'created_at' => $invitation->created_at->toISOString(),
+                    'invitation_url' => $invitation->getInvitationUrl(),
+                ];
+            });
+        return response()->json(['data' => $invitations]);
+    }
     /**
      * Créer et envoyer une invitation
      */
