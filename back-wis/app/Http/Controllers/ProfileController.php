@@ -15,8 +15,9 @@ class ProfileController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Profile::class);
-//        $profile = Profile::with('user')->where('user_id', auth()->id())->get();
-        $profile = Profile::where('user_id', auth()->id())->first();
+        $profile = Profile::with(['user', 'skills'])
+            ->where('user_id', auth()->id())
+            ->first();
         return new ProfileResource($profile);
     }
     /**
@@ -34,7 +35,12 @@ class ProfileController extends Controller
         $data['slug'] = \Str::slug($user->firstname . ' ' . $user->name . '-' . uniqid());
 
         $profile = Profile::create($data);
-        $profile->load('user');
+        // Attacher les skills si fournis
+        if (isset($data['skills']) && is_array($data['skills'])) {
+            $this->syncSkills($profile, $data['skills']);
+        }
+
+        $profile->load(['user', 'skills']);
 
         return new ProfileResource($profile);
     }
@@ -42,19 +48,10 @@ class ProfileController extends Controller
     /**
      * Show Profile by slug.
      */
-//    public function show(Profile $profile)
-//    {
-//        $this->authorize('view', $profile);
-//        $profile->load('user');
-//
-//        return new ProfileResource($profile);
-//    }
-    // show profile by slug
     public function showBySlug($profile)
     {
-        $profile = Profile::where('slug', $profile)->firstOrFail();
+        $profile = Profile::with(['user', 'skills'])::where('slug', $profile)->firstOrFail();
         $this->authorize('view', $profile);
-        $profile->load('user');
         return new ProfileResource($profile);
     }
 
@@ -67,8 +64,12 @@ class ProfileController extends Controller
         $this->authorize('update', $profile);
         $data = $request->validated();
 
+        // Mettre à jour les skills si fourni
+        if (isset($data['skills']) && is_array($data['skills'])) {
+            $this->syncSkills($profile, $data['skills']);
+        }
         $profile->update($data);
-        $profile->load('user');
+        $profile->load(['user', 'skills']);
         return new ProfileResource($profile);
     }
 
@@ -82,5 +83,19 @@ class ProfileController extends Controller
         $profile->delete();
 
         return response()->json();
+    }
+
+    /**
+     * Sync skills with levels.
+     */
+    private function syncSkills(Profile $profile, array $skills)
+    {
+        $syncData = [];
+        foreach ($skills as $skill) {
+            if (isset($skill['skill_id']) && isset($skill['level'])) {
+                $syncData[$skill['skill_id']] = ['level' => $skill['level']];
+            }
+        }
+        $profile->skills()->sync($syncData);
     }
 }

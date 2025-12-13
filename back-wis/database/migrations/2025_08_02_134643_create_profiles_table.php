@@ -5,14 +5,13 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration {
-    public function up()
+    public function up(): void
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('slug')->unique();
+            $table->string('slug')->index()->unique();
             $table->text('resume')->nullable();
             $table->json('social')->nullable();
-            $table->json('skills')->nullable();
             $table->json('experiences')->nullable();
             $table->json('education')->nullable();
             $table->json('languages')->nullable();
@@ -21,7 +20,7 @@ return new class extends Migration {
         });
     }
 
-    public function down()
+    public function down(): void
     {
         Schema::dropIfExists('profiles');
     }

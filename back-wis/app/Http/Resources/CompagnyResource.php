@@ -10,7 +10,11 @@ use Illuminate\Support\Facades\Storage;
 /** @mixin Compagny */
 class CompagnyResource extends JsonResource
 {
-    public function toArray(Request $request)
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function toArray(Request $request): array
     {
         return [
             'id' => $this->id,
@@ -19,8 +23,6 @@ class CompagnyResource extends JsonResource
             'website' => $this->website,
             'location' => $this->location,
             'logo' => $this->logo ? url(Storage::url($this->logo)) : null,
-            'owner_id' => $this->owner_id,
-            'owner' => $this->whenLoaded('owner'),
             'recruiters' => $this->whenLoaded('recruiters'),
             'isVerified' => $this->is_verified,
             'created_at' => $this->created_at,

@@ -6,6 +6,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
@@ -15,15 +16,18 @@ class CompagniesTable
     {
         return $table
             ->columns([
+                ImageColumn::make('logo')
+                    ->searchable(),
                 TextColumn::make('name')
+                    ->limit(15)
                     ->searchable(),
                 TextColumn::make('description')
+                    ->limit(20)
+                    ->toggleable(isToggledHiddenByDefault: true)
                     ->searchable(),
                 TextColumn::make('website')
                     ->searchable(),
                 TextColumn::make('location')
-                    ->searchable(),
-                TextColumn::make('logo')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

@@ -16,8 +16,10 @@ class JobsTable
         return $table
             ->columns([
                 TextColumn::make('title')
+                    ->limit(15)
                     ->searchable(),
                 TextColumn::make('description')
+                    ->limit(20)
                     ->searchable(),
                 TextColumn::make('salary')
                     ->numeric()
@@ -25,9 +27,11 @@ class JobsTable
                 TextColumn::make('experienceLevel')
                     ->searchable(),
                 TextColumn::make('location')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('jobtype')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('recruiter.email')
                     ->label('Recruiter')
                     ->searchable()

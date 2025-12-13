@@ -14,7 +14,13 @@ class JobRequest extends FormRequest
         return [
             'title' => ['required'],
             'description' => ['required'],
-            'requirements' => ['nullable', 'array'],
+            'skills' => ['nullable', 'array'],
+            'skills.*.skill_id' => ['required_with:skills', 'integer', 'exists:skills,id'],
+            'skills.*.level' => [
+                'required_with:skills',
+                'string',
+                Rule::enum(ExperienceLevel::class)
+            ],
             'salary' => ['nullable', 'numeric'],
             'experienceLevel' => ['required', Rule::enum(ExperienceLevel::class)],
             'location' => ['nullable'],

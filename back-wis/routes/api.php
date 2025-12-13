@@ -16,8 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 require __DIR__.'/auth.php';
 require __DIR__.'/compagny.php';
-require __DIR__.'/compagnyVerification.php';
-require __DIR__.'/compagnyInvitation.php';
+//require __DIR__.'/compagnyVerification.php';
+//require __DIR__.'/compagnyInvitation.php';
 require __DIR__.'/profile.php';
 require __DIR__.'/job.php';
 require __DIR__.'/application.php';
+require __DIR__.'/codelist.php';
+require __DIR__.'/subscription.php';

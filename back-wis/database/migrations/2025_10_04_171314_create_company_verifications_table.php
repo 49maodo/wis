@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignIdFor(Compagny::class)->constrained('compagnies');
             $table->foreignIdFor(User::class, 'submitted_by')->constrained('users');
-            $table->string('status')->default(VerificationStatus::PENDING->value);;
+            $table->string('status')->default(VerificationStatus::PENDING->value);
             $table->string('ninea');
             $table->string('rccm')->nullable();
             $table->longText('notes')->nullable();

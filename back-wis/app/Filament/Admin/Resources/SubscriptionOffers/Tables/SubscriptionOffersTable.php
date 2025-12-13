@@ -1,40 +1,35 @@
 <?php
 
-namespace App\Filament\Admin\Resources\CompagnyVerifications\Tables;
+namespace App\Filament\Admin\Resources\SubscriptionOffers\Tables;
 
-use App\Enums\VerificationStatus;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
-class CompagnyVerificationsTable
+class SubscriptionOffersTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                TextColumn::make('compagny.name')
+                TextColumn::make('name')
+                    ->searchable(),
+                TextColumn::make('description')
+                    ->searchable(),
+                TextColumn::make('price')
+                    ->money()
+                    ->sortable(),
+                TextColumn::make('max_jobs')
                     ->numeric()
                     ->sortable(),
-                TextColumn::make('compagny.owner.email', )
-                    ->label('Submitted By')
-                    ->numeric()
+                TextColumn::make('offer_type')
+                    ->searchable(),
+                IconColumn::make('is_active')
+                    ->boolean()
                     ->sortable(),
-                TextColumn::make('status')
-                    ->badge()
-                    ->color(fn (VerificationStatus|string $state): string => match ($state) {
-                        VerificationStatus::APPROVED => 'primary',
-                        VerificationStatus::PENDING => 'success',
-                        VerificationStatus::REJECTED => 'danger',
-                        default => 'secondary',
-                    })
-                    ->searchable(),
-                TextColumn::make('ninea')
-                    ->searchable(),
-                TextColumn::make('rccm')
-                    ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()

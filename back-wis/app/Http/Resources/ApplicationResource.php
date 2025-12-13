@@ -20,7 +20,8 @@ class ApplicationResource extends JsonResource
             'job' => new JobResource($this->whenLoaded('job')),
             'candidat' => $this->whenLoaded('candidat'),
             'compagny' => new CompagnyResource($this->whenLoaded('compagny')),
-            'profile' => $this->whenLoaded('candidat.profile'),
+            'profile' => new ProfileResource($this->whenLoaded('candidat.profile')),
+            'skills' => $this->whenLoaded('candidat.profile.skills'),
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];
