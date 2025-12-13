@@ -30,6 +30,16 @@ class DatabaseSeeder extends Seeder
             'phoneNumber' => '770000001',
         ]);
 
+        \App\Models\User::factory()->create([
+            'firstname' => 'User',
+            'name' => 'User',
+            'email' => 'user@example.com',
+            'role' => \App\Enums\UserRole::RECRUITER,
+            'password' => 'string',
+            'phoneNumber' => '770000002',
+        ]);
+
+
 
     }
 }

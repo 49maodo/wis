@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\ExperienceLevel;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProfileRequest extends FormRequest
 {
@@ -18,9 +20,12 @@ class ProfileRequest extends FormRequest
 
             // Compétences
             'skills' => ['nullable', 'array'],
-            'skills.*.name' => ['required_with:skills', 'string', 'max:100'],
-            'skills.*.level' => ['nullable', 'string', 'in:débutant,intermédiaire,avancé,expert'],
-            'skills.*.category' => ['nullable', 'string', 'max:50'],
+            'skills.*.skill_id' => ['required', 'integer', 'exists:skills,id'],
+            'skills.*.level' => [
+                'required',
+                'string',
+                Rule::enum(ExperienceLevel::class)
+            ],
 
             // Expériences
             'experiences' => ['nullable', 'array'],
@@ -63,7 +68,6 @@ class ProfileRequest extends FormRequest
             'experiences.*.end_date.after' => 'La date de fin doit être après la date de début.',
             'education.*.end_date.after' => 'La date de fin doit être après la date de début.',
             'languages.*.level.in' => 'Le niveau de langue doit être : débutant, élémentaire, intermédiaire, courant, bilingue ou natif.',
-            'skills.*.level.in' => 'Le niveau de compétence doit être : débutant, intermédiaire, avancé ou expert.',
         ];
     }
 }

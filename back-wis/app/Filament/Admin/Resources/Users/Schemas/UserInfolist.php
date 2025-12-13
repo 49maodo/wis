@@ -12,13 +12,13 @@ class UserInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('firstname'),
-                TextEntry::make('name'),
-                TextEntry::make('email')
+                TextEntry::make('firstname')->badge()->default('N/A'),
+                TextEntry::make('name')->badge()->default('N/A'),
+                TextEntry::make('email')->badge()->default('N/A')
                     ->label('Email address'),
-                TextEntry::make('email_verified_at')
+                TextEntry::make('email_verified_at')->badge()->default('N/A')
                     ->dateTime(),
-                TextEntry::make('phoneNumber'),
+                TextEntry::make('phoneNumber')->badge()->default('N/A'),
                 TextEntry::make('role')
                     ->badge()
                     ->color(fn (UserRole|string $state): string => match ($state) {
@@ -27,11 +27,10 @@ class UserInfolist
                         UserRole::ADMIN => 'danger',
                         default => 'secondary',
                     }),
-                TextEntry::make('compagny_id')
-                    ->numeric(),
-                TextEntry::make('created_at')
+                TextEntry::make('compagny.name')->label('Company')->badge()->default('N/A'),
+                TextEntry::make('created_at')->badge()->default('N/A')
                     ->dateTime(),
-                TextEntry::make('updated_at')
+                TextEntry::make('updated_at')->badge()->default('N/A')
                     ->dateTime(),
             ]);
     }

@@ -11,20 +11,21 @@ class JobInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('title'),
-                TextEntry::make('description'),
-                TextEntry::make('salary')
+                TextEntry::make('title')->badge()->default('N/A'),
+                TextEntry::make('description')->badge()->default('N/A'),
+                TextEntry::make('salary')->badge()->default('N/A')
+                    ->numeric(
+                    )->prefix('XAF '),
+                TextEntry::make('experienceLevel')->badge()->default('N/A'),
+                TextEntry::make('location')->badge()->default('N/A'),
+                TextEntry::make('jobtype')->badge()->default('N/A'),
+                TextEntry::make('recruiter.email')->badge()->default('N/A')
                     ->numeric(),
-                TextEntry::make('experienceLevel'),
-                TextEntry::make('location'),
-                TextEntry::make('jobtype'),
-                TextEntry::make('recruiter.email')
+                TextEntry::make('compagny.name')->badge()->default('N/A')
                     ->numeric(),
-                TextEntry::make('compagny.name')
-                    ->numeric(),
-                TextEntry::make('created_at')
+                TextEntry::make('created_at')->badge()->default('N/A')
                     ->dateTime(),
-                TextEntry::make('updated_at')
+                TextEntry::make('updated_at')->badge()->default('N/A')
                     ->dateTime(),
             ]);
     }

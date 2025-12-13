@@ -17,7 +17,15 @@ class ProfileResource extends JsonResource
             'slug' => $this->slug,
             'resume' => $this->resume,
             'social_links' => $this->formatSocialLinks(),
-            'skills' => $this->formatSkills(),
+            'skills' => $this->whenLoaded('skills')->map(function ($skill) {
+                return [
+                    'id' => $skill->pivot->id,
+                    'skill_id' => $skill->pivot->skill_id,
+                    'name' => $skill->name,
+                    'description' => $skill->description,
+                    'level' => $skill->pivot->level,
+                ];
+            }),
             'experiences' => $this->formatExperiences(),
             'education' => $this->formatEducation(),
             'languages' => $this->formatLanguages(),

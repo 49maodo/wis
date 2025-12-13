@@ -15,7 +15,15 @@ class JobResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'requirements' => $this->requirements,
+            'skills' => $this->whenLoaded('skills')->map(function ($skill) {
+                return [
+                    'id' => $skill->pivot->id,
+                    'skill_id' => $skill->pivot->skill_id,
+                    'name' => $skill->name,
+                    'description' => $skill->description,
+                    'level' => $skill->pivot->level,
+                ];
+            }),
             'salary' => $this->salary,
             'experienceLevel' => $this->experienceLevel,
             'location' => $this->location,
@@ -24,6 +32,8 @@ class JobResource extends JsonResource
             'deadline' => $this->deadline,
             'creator' => $this->whenLoaded('recruiter'),
             'compagny' => new CompagnyResource($this->whenLoaded('compagny')),
+
+            'applications_count' => $this->applications_count,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ];

@@ -60,6 +60,16 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(Profile::class, 'user_id', 'id');
     }
 
+    public function jobs()
+    {
+        return $this->hasMany(Job::class, 'creatorId', 'id');
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class, 'recruiter_id', 'id');
+    }
+
     // hasRole
 
     public function hasRole(UserRole $role): bool

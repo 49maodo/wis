@@ -9,6 +9,8 @@ class CompagnyRequest extends FormRequest
     public function rules()
     {
         return [
+            'ninea' => ['nullable', 'string', 'max:255'],
+            'rccm' => ['nullable', 'string', 'max:255'],
             'name' => ['required', 'string', 'max:255', 'unique:compagnies,name,'.$this->compagny?->id],
             'description' => ['nullable', 'max:255'],
             'website' => ['nullable', 'url'],

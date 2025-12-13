@@ -12,7 +12,8 @@ class CompagnyController extends Controller
     {
         $this->authorize('viewAny', Compagny::class);
         $compagnies = Compagny::all();
-        $compagnies->load('owner', 'verifications', 'verifications.submittedBy', 'recruiters');
+        $compagnies->load( 'recruiters');
+        // load count job
         return CompagnyResource::collection($compagnies);
     }
 
@@ -31,7 +32,7 @@ class CompagnyController extends Controller
 
         $this->authorize('view', $compagny);
 
-        $compagny->load('owner', 'verifications', 'verifications.submittedBy', 'recruiters');
+        $compagny->load('recruiters');
 
         return new CompagnyResource($compagny);
     }
@@ -45,20 +46,19 @@ class CompagnyController extends Controller
             $data['logo'] = $request->file('logo')->store('logos', 'public');
         }
         $user = auth()->user();
-        $data['owner_id'] = $user->id;
         // update user compagny_id
         $compagny = Compagny::create($data);
         $user->compagny_id = $compagny->id;
         $user->save();
 
-        return new CompagnyResource($compagny->load('owner'));
+        return new CompagnyResource($compagny->load('recruiters'));
     }
 
     public function show(Compagny $compagny)
     {
         $this->authorize('view', $compagny);
 
-        $compagny->load('owner', 'verifications', 'verifications.submittedBy', 'recruiters');
+        $compagny->load( 'recruiters');
 
         return new CompagnyResource($compagny);
     }
@@ -80,7 +80,7 @@ class CompagnyController extends Controller
 
         $compagny->update($data);
 
-        $compagny->load('owner', 'verifications', 'verifications.submittedBy', 'recruiters');
+        $compagny->load( 'recruiters');
 
         return new CompagnyResource($compagny);
     }

@@ -11,7 +11,7 @@ class JobController extends Controller
     public function index()
     {
         $this->authorize('viewAny', Job::class);
-        $jobs = Job::with(['compagny', 'recruiter'])->get();
+        $jobs = Job::with(['recruiter.compagny', 'recruiter','skills'])->get();
 
         return JobResource::collection($jobs);
     }
@@ -23,10 +23,12 @@ class JobController extends Controller
 
         // Si user_id n'est pas fourni, utiliser l'utilisateur authentifié
         $data['creatorId'] = auth()->id();
-        $data['compagny_id'] = auth()->user()->compagny->id;
 
         $job = Job::create($data);
-        $job->load(['compagny', 'recruiter']);
+        if (isset($data['skills']) && is_array($data['skills'])) {
+            $this->syncSkills($job, $data['skills']);
+        }
+        $job->load(['recruiter.compagny', 'recruiter', 'skills']);
 
         return new JobResource($job);
     }
@@ -34,7 +36,12 @@ class JobController extends Controller
     public function show(Job $job)
     {
         $this->authorize('view', $job);
-        $job->load(['compagny', 'recruiter']);
+        $job->load(['recruiter.compagny', 'recruiter', 'skills',])->loadCount('applications')->get();
+
+        // with application count
+//        if (auth()->user()){
+//            $job::loadCount(['applications']);
+//        }
 
         return new JobResource($job);
     }
@@ -42,9 +49,12 @@ class JobController extends Controller
     public function update(JobRequest $request, Job $job)
     {
         $this->authorize('update', $job);
-
-        $job->update($request->validated());
-        $job->load(['compagny', 'recruiter']);
+        $data = $request->validated();
+        if (isset($data['skills']) && is_array($data['skills'])) {
+            $this->syncSkills($job, $data['skills']);
+        }
+        $job->update($data);
+        $job->load(['recruiter.compagny', 'recruiter', 'skills']);
         return new JobResource($job);
     }
 
@@ -55,5 +65,19 @@ class JobController extends Controller
         $job->delete();
 
         return response()->json();
+    }
+
+    /**
+     * Sync skills with levels.
+     */
+    private function syncSkills(Job $job, array $skills)
+    {
+        $syncData = [];
+        foreach ($skills as $skill) {
+            if (isset($skill['skill_id']) && isset($skill['level'])) {
+                $syncData[$skill['skill_id']] = ['level' => $skill['level']];
+            }
+        }
+        $job->skills()->sync($syncData);
     }
 }

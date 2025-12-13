@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Profile extends Model
 {
@@ -11,7 +12,6 @@ class Profile extends Model
         'slug',
         'resume',
         'social',
-        'skills',
         'experiences',
         'education',
         'languages',
@@ -20,7 +20,6 @@ class Profile extends Model
 
     protected $casts = [
         'social' => 'array',
-        'skills' => 'array',
         'experiences' => 'array',
         'education' => 'array',
         'languages' => 'array',
@@ -29,5 +28,11 @@ class Profile extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class, 'profile_skills')
+            ->withPivot(['level', 'id']);
     }
 }

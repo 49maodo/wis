@@ -14,7 +14,7 @@ class ApplicationController extends Controller
     {
         $this->authorize('viewAny', Application::class);
 
-        $applications = Application::with(['job', 'job.compagny', 'candidat', 'candidat.profile'])->get();
+        $applications = Application::with(['job', 'job.skills', 'job.recruiter.compagny', 'candidat', 'candidat.profile', 'candidat.profile.skills'])->get();
 
         return ApplicationResource::collection($applications);
     }
@@ -25,12 +25,12 @@ class ApplicationController extends Controller
 
         $data = $request->validated();
         $data['candidat_id'] = auth()->id();
-        if($request->hasFile('cv')){
+        if ($request->hasFile('cv')) {
             $data['cv'] = $request->file('cv')->store('cvs', 'public');
         }
 
         $application = Application::create($data);
-        $application->load(['job', 'job.compagny', 'candidat', 'candidat.profile']);
+        $application->load(['job', 'job.skills', 'job.recruiter.compagny', 'candidat', 'candidat.profile', 'candidat.profile.skills']);
 
         return new ApplicationResource($application);
     }
@@ -39,7 +39,7 @@ class ApplicationController extends Controller
     {
         $this->authorize('view', $application);
 
-        $application->load(['job', 'job.compagny', 'candidat', 'candidat.profile']); // Charger les relations
+        $application->load(['job', 'job.skills', 'job.recruiter.compagny', 'candidat', 'candidat.profile', 'candidat.profile.skills']); // Charger les relations
 
         return new ApplicationResource($application);
     }
@@ -47,7 +47,7 @@ class ApplicationController extends Controller
     public function showByJob(Job $job)
     {
         $applications = Application::where('job_id', $job->id)
-            ->with(['job', 'job.compagny', 'candidat', 'candidat.profile'])->get();
+            ->with(['job', 'job.skills', 'job.recruiter.compagny', 'candidat', 'candidat.profile', 'candidat.profile.skills'])->get();
         return ApplicationResource::collection($applications);
     }
 
@@ -57,7 +57,7 @@ class ApplicationController extends Controller
 
         $application->update($request->validated());
 
-        $application->load(['job', 'job.compagny', 'candidat', 'candidat.profile']); // Recharger les relations
+        $application->load(['job', 'job.skills', 'job.recruiter.compagny', 'candidat', 'candidat.profile', 'candidat.profile.skills']); // Recharger les relations
 
         return new ApplicationResource($application);
     }
