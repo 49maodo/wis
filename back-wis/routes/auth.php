@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest')
                 ->name('register');
+Route::post('/register-recruiter', [RegisteredUserController::class, 'storeRecruiter'])
+                ->middleware('guest')
+                ->name('registerRecruiter');
+Route::post('/check-ninea', [RegisteredUserController::class, 'checkNinea']);
 
 Route::post('/login', [AuthenticatedSessionController::class, 'store'])
                 ->middleware('guest')

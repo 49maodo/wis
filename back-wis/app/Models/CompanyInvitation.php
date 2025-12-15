@@ -15,6 +15,7 @@ class CompanyInvitation extends Model
         'token',
         'expires_at',
         'accepted_at',
+        'name',
     ];
 
     protected $casts = [
