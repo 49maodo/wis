@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\SubscriptionController;
 
+Route::get('/subscriptions/offers', [SubscriptionController::class, 'offers']);
 Route::prefix('subscriptions')->group(function () {
-    Route::get('/offers', [SubscriptionController::class, 'offers']);
     Route::get('/current', [SubscriptionController::class, 'current']);
     Route::get('/', [SubscriptionController::class, 'index']);
     Route::post('/', [SubscriptionController::class, 'store']);
