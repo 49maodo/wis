@@ -30,7 +30,7 @@ class CodeList extends Model
         'PaymentStatus' => 'Payment Status',
         'OfferType' => 'Offer Types',
         'Location' => 'Locations',
-        'sector' => 'Sectors'
+        'Sector' => 'Sectors'
     ];
 
 

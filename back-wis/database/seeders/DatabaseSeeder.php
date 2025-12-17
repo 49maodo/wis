@@ -39,6 +39,11 @@ class DatabaseSeeder extends Seeder
             'phoneNumber' => '770000002',
         ]);
 
+        $this->call([
+            CodeListSeeder::class,
+            SubscriptionOfferSeeder::class,
+        ]);
+
 
 
     }

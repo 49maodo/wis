@@ -3,6 +3,7 @@
 namespace App\Filament\Admin\Resources\Users\Schemas;
 
 use App\Enums\UserRole;
+use App\Models\User;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -20,9 +21,10 @@ class UserForm
                 TextInput::make('email')
                     ->label('Email address')
                     ->email()
+                    ->unique(ignorable: fn (?User $record) => $record)
                     ->required(),
                 TextInput::make('phoneNumber')
-                    ->tel(),
+                    ->label('Phone number'),
                 Select::make('role')
                     ->options(UserRole::class)
                     ->default('user'),

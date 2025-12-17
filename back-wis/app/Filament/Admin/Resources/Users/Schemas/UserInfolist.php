@@ -16,8 +16,9 @@ class UserInfolist
                 TextEntry::make('name')->badge()->default('N/A'),
                 TextEntry::make('email')->badge()->default('N/A')
                     ->label('Email address'),
-                TextEntry::make('email_verified_at')->badge()->default('N/A')
-                    ->dateTime(),
+                TextEntry::make('email_verified_at')->badge()
+//                    empty string if not verified
+                        ->default('N/A'),
                 TextEntry::make('phoneNumber')->badge()->default('N/A'),
                 TextEntry::make('role')
                     ->badge()

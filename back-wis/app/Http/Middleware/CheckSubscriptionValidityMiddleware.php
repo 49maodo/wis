@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\SubscriptionStatus;
+use App\Enums\UserRole;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -9,12 +11,12 @@ class CheckSubscriptionValidityMiddleware
 {
     public function handle(Request $request, Closure $next)
     {
-        if ($request->user()->role !== 'RECRUITER') {
+        if ($request->user()->role !== UserRole::RECRUITER->value) {
             return $next($request);
         }
 
         $subscription = $request->user()->subscriptions()
-            ->where('status', 'ACTIVE')
+            ->where('status', SubscriptionStatus::ACTIVE)
             ->latest()
             ->first();
 

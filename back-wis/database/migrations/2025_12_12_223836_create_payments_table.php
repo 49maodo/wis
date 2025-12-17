@@ -11,7 +11,7 @@ return new class extends Migration {
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(Subscription::class)->constrained()->nullOnDelete();
+            $table->foreignIdFor(Subscription::class)->nullable()->constrained()->nullOnDelete();
             $table->decimal('amount');
             $table->string('payment_method');
             $table->string('payment_status')->default(PaymentStatus::PENDING->value)->index();

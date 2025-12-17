@@ -26,7 +26,7 @@ class JobRequest extends FormRequest
             'location' => ['nullable'],
             'sector' => ['nullable'],
             'jobtype' => ['required', Rule::enum(JobType::class)],
-            'deadline' => ['nullable', 'date', 'after:today'],
+            'deadline' => ['nullable', 'date', 'after_or_equal:today'],
         ];
     }
 
