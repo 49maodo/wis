@@ -76,7 +76,7 @@ class Subscription extends Model
     public function getUsedQuota(): int
     {
         return $this->subscriptionJobs()
-            ->whereHas('job', fn($q) => $q->where('is_active', true))
+            ->whereHas('job')
             ->count();
     }
 

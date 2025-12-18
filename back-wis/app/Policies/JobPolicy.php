@@ -2,6 +2,8 @@
 
 namespace App\Policies;
 
+use App\Enums\OfferType;
+use App\Enums\SubscriptionStatus;
 use App\Enums\UserRole;
 use App\Enums\VerificationStatus;
 use App\Models\Job;
@@ -30,8 +32,8 @@ class JobPolicy
 
         // Le recruteur doit avoir une entreprise validée
         if ($user->hasRole(UserRole::RECRUITER) && $user->compagny->status !== VerificationStatus::REJECTED) {
-            $subscription = $user->recruiter->subscriptions()
-                ->where('status', 'ACTIVE')
+            $subscription = $user->subscriptions()
+                ->where('status', SubscriptionStatus::ACTIVE->value)
                 ->latest()
                 ->first();
             if (!$subscription || !$subscription->checkValidity()) {
@@ -40,7 +42,7 @@ class JobPolicy
 
             // Check quota
             return $subscription->getRemainingQuota() > 0 ||
-                $subscription->subscriptionOffer->offer_type === 'UNLIMITED';
+                $subscription->subscriptionOffer->offer_type === OfferType::UNLIMITED->value;
         }
 
         return false;

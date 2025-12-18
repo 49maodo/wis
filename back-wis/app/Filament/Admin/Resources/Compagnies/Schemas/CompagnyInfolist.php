@@ -26,7 +26,7 @@ class CompagnyInfolist
                 TextEntry::make('website')->badge()->default('N/A'),
                 TextEntry::make('location')->badge()->default('N/A'),
                 ImageEntry::make('logo')
-                    ->default('N/A')
+                    ->default('https://placehold.co/400')
                     ->imageHeight(50)
                     ->circular()
                     ->disk('public'),

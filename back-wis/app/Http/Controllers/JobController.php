@@ -28,6 +28,12 @@ class JobController extends Controller
         if (isset($data['skills']) && is_array($data['skills'])) {
             $this->syncSkills($job, $data['skills']);
         }
+        // current active subscription
+        // update subscription jobs
+        $job->subscriptionJobs()->create([
+            'subscription_id' => $job->recruiter->activeSubscription()->id,
+        ]);
+
         $job->load(['recruiter.compagny', 'recruiter', 'skills']);
 
         return new JobResource($job);

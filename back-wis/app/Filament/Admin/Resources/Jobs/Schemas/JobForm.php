@@ -7,6 +7,7 @@ use App\Enums\JobType;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Schema;
 
 class JobForm
@@ -26,15 +27,10 @@ class JobForm
                 Select::make('experienceLevel')
                     ->options(ExperienceLevel::class)
                     ->required(),
+                Toggle::make('is_active')->default('true')->label('Active'),
                 TextInput::make('location'),
                 Select::make('jobtype')
                     ->options(JobType::class)
-                    ->required(),
-                TextInput::make('creatorId')
-                    ->required()
-                    ->numeric(),
-                Select::make('compagny_id')
-                    ->relationship('compagny', 'name')
                     ->required(),
             ]);
     }

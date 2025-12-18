@@ -5,10 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Enums\UserRole;
 use App\Http\Controllers\Controller;
 use App\Models\Compagny;
-use App\Models\Profile;
 use App\Models\SubscriptionOffer;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,16 +35,6 @@ class RegisteredUserController extends Controller
             'firstname' => $request->firstname,
             'phoneNumber' => $request->phoneNumber,
         ]);
-
-        // create profile
-        Profile::create(
-            [
-                'user_id' => $user->id,
-                'slug' => \Str::slug($user->firstname . ' ' . $user->name . '-' . uniqid()),
-            ]
-        );
-
-        event(new Registered($user));
 
         return response()->json([
             'status' => 'success',

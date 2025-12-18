@@ -36,7 +36,7 @@ class JobsTable
                     ->label('Recruiter')
                     ->searchable()
                     ->sortable(),
-                TextColumn::make('compagny.name')
+                TextColumn::make('recruiter.compagny.name')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')

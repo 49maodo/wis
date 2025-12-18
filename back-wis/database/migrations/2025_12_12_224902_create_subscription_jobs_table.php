@@ -11,14 +11,14 @@ return new class extends Migration {
     {
         Schema::create('subscription_jobs', function (Blueprint $table) {
             $table->id();
-            $table->integer('used_quota');
-            $table->date('assigned_date')->useCurrent();
+            $table->integer('used_quota')->default(1);
+            $table->date('assigned_date')->useCurrent()->default(now());
             $table->foreignIdFor(Subscription::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(Job::class)->constrained()->onDelete('cascade');
+            $table->foreignIdFor(Job::class)->constrained()->nullOnDelete();
             $table->timestamps();
 
 
-            $table->unique(['subscription_id', 'job_offer_id']);
+            $table->unique(['subscription_id', 'job_id']);
         });
     }
 
