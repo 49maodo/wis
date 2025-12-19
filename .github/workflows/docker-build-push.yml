@@ -5,12 +5,12 @@ on:
     branches:
       - dev
     paths:
-      - 'back-wis/**'  # Déclenche uniquement si back-wis change
+      - './back-wis/**'  # Déclenche uniquement si back-wis change
   pull_request:
     branches:
       - dev
     paths:
-      - 'back-wis/**'
+      - './back-wis/**'
 
 jobs:
   build-and-push:
