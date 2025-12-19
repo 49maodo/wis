@@ -3,12 +3,12 @@ name: Build and Push Docker Image
 on:
   push:
     branches:
-      - development
+      - dev
     paths:
       - 'back-wis/**'  # Déclenche uniquement si back-wis change
   pull_request:
     branches:
-      - development
+      - dev
     paths:
       - 'back-wis/**'
 
