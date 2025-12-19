@@ -25,7 +25,7 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/wis:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/wis:latest ./back-wis
           docker tag ${{ secrets.DOCKER_USERNAME }}/wis:latest ${{ secrets.DOCKER_USERNAME }}/wis:v1.0
           docker save ${{ secrets.DOCKER_USERNAME }}/wis:latest > image.tar
 
