@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CodeListSeeder::class,
             SubscriptionOfferSeeder::class,
+            SkillSeeder::class,
         ]);
 
 

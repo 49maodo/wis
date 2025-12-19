@@ -102,7 +102,7 @@ class SubscriptionController extends Controller
             'recruiter_id' => auth()->user()->id,
             'subscription_offer_id' => $offer->id,
             'start_date' => now(),
-            'end_date' => now()->addYear(), // BASIC is free for 1 year
+            'end_date' => now()->addMonth(), // BASIC is free for 1 year
             'status' => SubscriptionStatus::ACTIVE->value,
         ]);
 

@@ -1,0 +1,34 @@
+# Ignorer les fichiers et répertoires suivants
+
+# Fichiers système
+.DS_Store
+.dockerignore
+.git
+.gitignore
+.idea
+.env
+.env.example
+.phpunit.result.cache
+
+# Dépendances de développement
+/node_modules
+/vendor
+/composer.lock
+/package-lock.json
+/yarn.lock
+
+# Fichiers de cache et logs
+/storage/*.key
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+/storage/logs/*
+/bootstrap/cache/*
+
+# Fichiers de tests
+/tests
+/phpunit.xml
+
+# Autres fichiers inutiles
+/public/storage
+/public/hot
