@@ -25,6 +25,7 @@ WORKDIR /var/www/html
 # Installer les dépendances du projet sans les devs
 RUN composer install --optimize-autoloader --no-dev
 
+
 # Exposer le port pour le serveur PHP
 EXPOSE 8000
 
