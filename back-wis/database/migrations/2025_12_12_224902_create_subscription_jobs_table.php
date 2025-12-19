@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->integer('used_quota')->default(1);
             $table->date('assigned_date')->useCurrent()->default(now());
             $table->foreignIdFor(Subscription::class)->constrained()->onDelete('cascade');
-            $table->foreignIdFor(Job::class)->constrained()->nullOnDelete();
+            $table->foreignIdFor(Job::class)->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
 
 
